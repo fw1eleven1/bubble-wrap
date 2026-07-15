@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+		<meta name="theme-color" content="#dff3f1" />
+		<title>🫧 디지털 무한 뽁뽁이 🫧</title>
+		<meta
+			name="description"
+			content="아무 생각 없이 톡! 톡! 터뜨리는 디지털 뽁뽁이. 오늘 쌓인 스트레스를 경쾌한 소리와 함께 날려버려세요!" />
+		<meta name="keywords" content="뽁뽁이, 디지털 뽁뽁이, 스트레스 해소, ASMR, 미니게임, 힐링" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="🫧 디지털 무한 뽁뽁이" />
+		<meta property="og:description" content="톡! 톡! 터뜨리며 무념무상 스트레스를 날려보세요. 은근히 중독성 있어요!" />
+		<!-- <meta property="og:image" content="https://your-vercel-domain.vercel.app/thumbnail.png" />
+		<meta property="og:url" content="https://your-vercel-domain.vercel.app" /> -->
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="🫧 디지털 무한 뽁뽁이" />
+		<meta name="twitter:description" content="톡! 톡! 터뜨리는 무한 뽁뽁이로 스트레스를 해소하세요!" />
+		<!-- <meta name="twitter:image" content="https://your-vercel-domain.vercel.app/thumbnail.png" /> -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="icon"
+			href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🫧</text></svg>" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gaegu:wght@700&display=swap" rel="stylesheet" />
+		<style>
+			*,
+			*::before,
+			*::after {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+
+			:root {
+				--mint: #a8e6d8;
+				--blue: #b8d9f5;
+				--pink: #f9c9dd;
+				--lilac: #d9cdf5;
+				--cream: #fff6e9;
+				--ink: #5b6b74;
+				--ink-soft: #8b9aa3;
+
+				--cell: 44px;
+				--gap: 9px;
+			}
+
+			html,
+			body {
+				height: 100%;
+			}
+
+			body {
+				font-family: 'Jua', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+				color: var(--ink);
+				background:
+					radial-gradient(circle at 12% 8%, rgba(249, 201, 221, 0.55), transparent 45%),
+					radial-gradient(circle at 88% 12%, rgba(184, 217, 245, 0.6), transparent 42%),
+					radial-gradient(circle at 78% 92%, rgba(217, 205, 245, 0.5), transparent 45%),
+					radial-gradient(circle at 18% 88%, rgba(168, 230, 216, 0.55), transparent 45%),
+					linear-gradient(160deg, #f3fbfa 0%, #eef5fd 50%, #fdf3f8 100%);
+				background-attachment: fixed;
+				min-height: 100dvh;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				padding: 22px 16px calc(18px + env(safe-area-inset-bottom));
+				gap: 16px;
+				overflow: hidden;
+				-webkit-tap-highlight-color: transparent;
+			}
+
+			/* ---------- 떠다니는 배경 방울 ---------- */
+			.deco {
+				position: fixed;
+				inset: 0;
+				pointer-events: none;
+				z-index: 0;
+				overflow: hidden;
+			}
+			.deco i {
+				position: absolute;
+				border-radius: 50%;
+				background: radial-gradient(
+					circle at 32% 28%,
+					rgba(255, 255, 255, 0.9),
+					rgba(255, 255, 255, 0.12) 60%,
+					transparent 70%
+				);
+				border: 1px solid rgba(255, 255, 255, 0.6);
+				animation: floaty linear infinite;
+				opacity: 0.7;
+			}
+			@keyframes floaty {
+				0% {
+					transform: translate3d(0, 110vh, 0) scale(0.7);
+				}
+				100% {
+					transform: translate3d(0, -20vh, 0) scale(1.1);
+				}
+			}
+
+			/* ---------- 헤더 ---------- */
+			header {
+				text-align: center;
+				z-index: 1;
+				animation: dropIn 0.7s cubic-bezier(0.22, 1.4, 0.36, 1) both;
+			}
+			h1 {
+				font-family: 'Gaegu', 'Jua', sans-serif;
+				font-size: clamp(28px, 5.2vw, 46px);
+				font-weight: 700;
+				letter-spacing: -0.5px;
+				color: #4e6470;
+				text-shadow:
+					0 2px 0 #fff,
+					0 6px 16px rgba(120, 170, 190, 0.35);
+			}
+			.subtitle {
+				margin-top: 6px;
+				font-size: clamp(13px, 2.2vw, 16px);
+				color: var(--ink-soft);
+			}
+			@keyframes dropIn {
+				from {
+					opacity: 0;
+					transform: translateY(-18px);
+				}
+				to {
+					opacity: 1;
+					transform: none;
+				}
+			}
+
+			/* ---------- 카운터 배지 ---------- */
+			.counter {
+				position: fixed;
+				top: 18px;
+				right: 18px;
+				z-index: 5;
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				padding: 10px 16px;
+				border-radius: 999px;
+				background: rgba(255, 255, 255, 0.72);
+				backdrop-filter: blur(10px);
+				-webkit-backdrop-filter: blur(10px);
+				border: 2px solid rgba(255, 255, 255, 0.9);
+				box-shadow:
+					0 8px 22px rgba(120, 160, 185, 0.28),
+					inset 0 1px 0 rgba(255, 255, 255, 0.9);
+				font-size: 14px;
+				color: #5f7280;
+				user-select: none;
+				animation: dropIn 0.7s 0.1s cubic-bezier(0.22, 1.4, 0.36, 1) both;
+			}
+			.counter .emoji {
+				font-size: 16px;
+			}
+			.counter #count {
+				display: inline-block;
+				min-width: 1ch;
+				font-family: 'Gaegu', sans-serif;
+				font-size: 20px;
+				font-weight: 700;
+				color: #ff8fb8;
+				transform-origin: center;
+			}
+			.counter #count.bump {
+				animation: bump 0.28s cubic-bezier(0.3, 1.6, 0.4, 1);
+			}
+			@keyframes bump {
+				0% {
+					transform: scale(1);
+				}
+				40% {
+					transform: scale(1.45) rotate(-6deg);
+					color: #ff6fa5;
+				}
+				100% {
+					transform: scale(1);
+				}
+			}
+
+			.sound-toggle {
+				position: fixed;
+				top: 18px;
+				left: 18px;
+				z-index: 5;
+				width: 42px;
+				height: 42px;
+				border: 2px solid rgba(255, 255, 255, 0.9);
+				border-radius: 50%;
+				background: rgba(255, 255, 255, 0.72);
+				backdrop-filter: blur(10px);
+				-webkit-backdrop-filter: blur(10px);
+				box-shadow: 0 8px 20px rgba(120, 160, 185, 0.25);
+				font-size: 17px;
+				cursor: pointer;
+				transition: transform 0.18s cubic-bezier(0.3, 1.6, 0.4, 1);
+				animation: dropIn 0.7s 0.15s cubic-bezier(0.22, 1.4, 0.36, 1) both;
+			}
+			.sound-toggle:hover {
+				transform: scale(1.1);
+			}
+			.sound-toggle:active {
+				transform: scale(0.92);
+			}
+
+			/* ---------- 뽁뽁이 판 ---------- */
+			.sheet {
+				position: relative;
+				z-index: 1;
+				flex: 1;
+				width: min(980px, 100%);
+				padding: 18px;
+				border-radius: 30px;
+				background: linear-gradient(150deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.25));
+				border: 2px solid rgba(255, 255, 255, 0.75);
+				box-shadow:
+					0 20px 45px rgba(120, 165, 190, 0.28),
+					inset 0 1px 0 rgba(255, 255, 255, 0.9);
+				backdrop-filter: blur(6px);
+				-webkit-backdrop-filter: blur(6px);
+				overflow: hidden;
+				display: grid;
+				grid-template-columns: repeat(auto-fill, var(--cell));
+				grid-auto-rows: var(--cell);
+				gap: var(--gap);
+				justify-content: center;
+				align-content: center;
+				touch-action: none;
+				cursor: pointer;
+				animation: dropIn 0.7s 0.2s cubic-bezier(0.22, 1.4, 0.36, 1) both;
+			}
+			.sheet.refreshing {
+				animation: sheetPop 0.5s cubic-bezier(0.3, 1.5, 0.4, 1);
+			}
+			@keyframes sheetPop {
+				0% {
+					transform: scale(1);
+				}
+				45% {
+					transform: scale(1.015) rotate(0.25deg);
+				}
+				100% {
+					transform: scale(1);
+				}
+			}
+
+			/* ---------- 뽁뽁이 한 알 ---------- */
+			.bubble {
+				position: relative;
+				border-radius: 50%;
+				border: none;
+				padding: 0;
+				background:
+					radial-gradient(circle at 34% 30%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.35) 22%, transparent 42%),
+					radial-gradient(circle at 68% 74%, rgba(255, 255, 255, 0.5) 0%, transparent 38%),
+					radial-gradient(
+						circle at 50% 46%,
+						rgba(200, 240, 236, 0.85) 0%,
+						rgba(168, 214, 235, 0.78) 60%,
+						rgba(190, 180, 235, 0.72) 100%
+					);
+				box-shadow:
+					0 6px 12px rgba(110, 155, 180, 0.32),
+					inset 0 -6px 10px rgba(110, 150, 180, 0.3),
+					inset 0 4px 8px rgba(255, 255, 255, 0.95);
+				cursor: pointer;
+				transform: translateZ(0);
+				transition:
+					transform 0.16s cubic-bezier(0.3, 1.5, 0.4, 1),
+					box-shadow 0.16s ease,
+					filter 0.16s ease;
+				will-change: transform;
+				animation: fillIn 0.4s cubic-bezier(0.3, 1.6, 0.4, 1) both;
+				animation-delay: var(--d, 0ms);
+			}
+			@keyframes fillIn {
+				from {
+					transform: scale(0.2);
+					opacity: 0;
+				}
+				to {
+					transform: scale(1);
+					opacity: 1;
+				}
+			}
+			.bubble::after {
+				content: '';
+				position: absolute;
+				top: 18%;
+				left: 22%;
+				width: 26%;
+				height: 20%;
+				border-radius: 50%;
+				background: rgba(255, 255, 255, 0.95);
+				filter: blur(1px);
+				transition:
+					opacity 0.2s ease,
+					transform 0.2s ease;
+			}
+
+			@media (hover: hover) {
+				.sheet:not(.dragging) .bubble:not(.popped):hover {
+					transform: scale(0.93) translateY(1px);
+					box-shadow:
+						0 3px 7px rgba(110, 155, 180, 0.3),
+						inset 0 -3px 7px rgba(110, 150, 180, 0.35),
+						inset 0 3px 6px rgba(255, 255, 255, 0.9);
+					filter: saturate(1.15) brightness(1.04);
+				}
+			}
+			.bubble:not(.popped):active {
+				transform: scale(0.86);
+			}
+
+			.bubble.popped {
+				cursor: default;
+				background: radial-gradient(
+					circle at 50% 44%,
+					rgba(224, 238, 240, 0.55) 0%,
+					rgba(206, 224, 234, 0.38) 70%,
+					rgba(214, 214, 234, 0.3) 100%
+				);
+				box-shadow:
+					inset 0 3px 7px rgba(120, 150, 175, 0.3),
+					inset 0 -2px 3px rgba(255, 255, 255, 0.55),
+					0 1px 1px rgba(255, 255, 255, 0.5);
+				transform: scale(0.84);
+				filter: saturate(0.35);
+				animation: squish 0.34s cubic-bezier(0.3, 1.5, 0.4, 1);
+			}
+			.bubble.popped::after {
+				opacity: 0;
+				transform: scale(0.4);
+			}
+			@keyframes squish {
+				0% {
+					transform: scale(1);
+				}
+				35% {
+					transform: scale(1.16, 0.72);
+				}
+				60% {
+					transform: scale(0.78, 0.95);
+				}
+				100% {
+					transform: scale(0.84);
+				}
+			}
+
+			/* ---------- 리셋 버튼 ---------- */
+			.reset {
+				z-index: 1;
+				font-family: inherit;
+				font-size: clamp(15px, 2.2vw, 17px);
+				color: #fff;
+				padding: 14px 34px;
+				border: none;
+				border-radius: 999px;
+				background: linear-gradient(135deg, #7fd8c8 0%, #8fc4ef 55%, #c3a9f0 100%);
+				box-shadow:
+					0 10px 22px rgba(120, 165, 200, 0.42),
+					inset 0 2px 0 rgba(255, 255, 255, 0.65),
+					inset 0 -3px 6px rgba(90, 130, 170, 0.3);
+				text-shadow: 0 1px 3px rgba(90, 120, 150, 0.35);
+				cursor: pointer;
+				transition:
+					transform 0.18s cubic-bezier(0.3, 1.6, 0.4, 1),
+					box-shadow 0.18s ease,
+					filter 0.18s ease;
+				animation: dropIn 0.7s 0.3s cubic-bezier(0.22, 1.4, 0.36, 1) both;
+			}
+			.reset:hover {
+				transform: translateY(-3px) scale(1.04);
+				filter: saturate(1.15) brightness(1.05);
+				box-shadow:
+					0 16px 28px rgba(120, 165, 200, 0.5),
+					inset 0 2px 0 rgba(255, 255, 255, 0.7);
+			}
+			.reset:active {
+				transform: translateY(1px) scale(0.97);
+			}
+
+			/* ---------- 파티클 ---------- */
+			.particle {
+				position: fixed;
+				border-radius: 50%;
+				pointer-events: none;
+				z-index: 20;
+				will-change: transform, opacity;
+			}
+
+			@media (max-width: 560px) {
+				:root {
+					--cell: 36px;
+					--gap: 7px;
+				}
+				body {
+					padding-top: 68px;
+					gap: 12px;
+				}
+				.counter {
+					top: 12px;
+					right: 12px;
+					padding: 8px 13px;
+					font-size: 12.5px;
+				}
+				.counter #count {
+					font-size: 17px;
+				}
+				.sound-toggle {
+					top: 12px;
+					left: 12px;
+					width: 38px;
+					height: 38px;
+				}
+				.sheet {
+					border-radius: 24px;
+					padding: 12px;
+				}
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				*,
+				*::before,
+				*::after {
+					animation-duration: 0.01ms !important;
+					animation-iteration-count: 1 !important;
+					transition-duration: 0.01ms !important;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="deco" id="deco" aria-hidden="true"></div>
+
+		<button class="sound-toggle" id="soundToggle" type="button" aria-label="소리 켜기/끄기" title="소리 켜기/끄기">
+			🔊
+		</button>
+
+		<div class="counter" role="status" aria-live="polite">
+			<span class="emoji" aria-hidden="true">🫧</span>
+			<span>오늘 터뜨린 뽁뽁이: <b id="count">0</b>개</span>
+		</div>
+
+		<header>
+			<h1>🫧 디지털 무한 뽁뽁이 🫧</h1>
+			<p class="subtitle">아무 생각 없이 톡! 톡! 터뜨려보세요.</p>
+		</header>
+
+		<main class="sheet" id="sheet" aria-label="뽁뽁이 판"></main>
+
+		<button class="reset" id="reset" type="button">✨ 새 뽁뽁이 가져오기 ✨</button>
+
+		<script>
+			(() => {
+				'use strict';
+
+				const sheet = document.getElementById('sheet');
+				const countEl = document.getElementById('count');
+				const resetBtn = document.getElementById('reset');
+				const soundBtn = document.getElementById('soundToggle');
+
+				const PASTELS = ['#a8e6d8', '#b8d9f5', '#f9c9dd', '#d9cdf5', '#ffe4a8', '#c9f2d4', '#ffc9c9'];
+
+				/* ================= 카운터 (LocalStorage, 날짜별) ================= */
+				const KEY = 'bubbleWrap.daily';
+				const today = () => new Date().toLocaleDateString('sv-SE'); // YYYY-MM-DD (로컬 기준)
+
+				function loadCount() {
+					try {
+						const raw = JSON.parse(localStorage.getItem(KEY) || 'null');
+						if (raw && raw.date === today() && Number.isFinite(raw.count)) return raw.count;
+					} catch (_) {}
+					return 0;
+				}
+				function saveCount() {
+					try {
+						localStorage.setItem(KEY, JSON.stringify({ date: today(), count }));
+					} catch (_) {}
+				}
+
+				let count = loadCount();
+				countEl.textContent = count.toLocaleString('ko-KR');
+
+				let saveTimer = null;
+				function addCount() {
+					count++;
+					countEl.textContent = count.toLocaleString('ko-KR');
+					countEl.classList.remove('bump');
+					void countEl.offsetWidth; // 리플로우 강제 → 연타해도 애니메이션 재시작
+					countEl.classList.add('bump');
+					clearTimeout(saveTimer);
+					saveTimer = setTimeout(saveCount, 250); // 드래그 연타 시 쓰기 폭주 방지
+				}
+				window.addEventListener('pagehide', saveCount);
+
+				/* ================= 사운드 (Web Audio API 신디사이징) ================= */
+				let ctx = null,
+					master = null,
+					noiseBuf = null;
+				let soundOn = true;
+				let lastSoundAt = 0;
+
+				function initAudio() {
+					if (ctx) return;
+					const AC = window.AudioContext || window.webkitAudioContext;
+					if (!AC) return;
+					ctx = new AC();
+
+					// 동시 다발 팝에서 클리핑 방지
+					const comp = ctx.createDynamicsCompressor();
+					comp.threshold.value = -18;
+					comp.knee.value = 24;
+					comp.ratio.value = 10;
+					comp.attack.value = 0.002;
+					comp.release.value = 0.12;
+
+					master = ctx.createGain();
+					master.gain.value = 0.75;
+					master.connect(comp).connect(ctx.destination);
+
+					// "톡" 어택용 짧은 화이트 노이즈 (한 번만 만들어 재사용)
+					const len = Math.floor(ctx.sampleRate * 0.03);
+					noiseBuf = ctx.createBuffer(1, len, ctx.sampleRate);
+					const data = noiseBuf.getChannelData(0);
+					for (let i = 0; i < len; i++) {
+						data[i] = (Math.random() * 2 - 1) * (1 - i / len); // 감쇠 노이즈
+					}
+				}
+
+				function playPop() {
+					if (!soundOn) return;
+					initAudio();
+					if (!ctx) return;
+					if (ctx.state === 'suspended') ctx.resume();
+
+					const now = ctx.currentTime;
+					if (now - lastSoundAt < 0.012) return; // 초고속 드래그에서 소리 뭉침 방지
+					lastSoundAt = now;
+
+					const pitch = 380 + Math.random() * 300; // 매번 미세하게 다른 음높이
+					const dur = 0.085 + Math.random() * 0.03;
+
+					// 1) 몸통: 위로 튀어오르는 피치 스윕 = "뽁!"
+					const osc = ctx.createOscillator();
+					osc.type = Math.random() < 0.5 ? 'triangle' : 'sine';
+					osc.frequency.setValueAtTime(pitch * 0.45, now);
+					osc.frequency.exponentialRampToValueAtTime(pitch * 2.7, now + 0.035);
+					osc.frequency.exponentialRampToValueAtTime(pitch * 1.9, now + dur);
+
+					const g = ctx.createGain();
+					g.gain.setValueAtTime(0.0001, now);
+					g.gain.exponentialRampToValueAtTime(0.32, now + 0.005);
+					g.gain.exponentialRampToValueAtTime(0.0001, now + dur);
+
+					osc.connect(g).connect(master);
+					osc.start(now);
+					osc.stop(now + dur + 0.02);
+
+					// 2) 어택: 밴드패스 통과한 노이즈 클릭 = 비닐 터지는 질감
+					if (noiseBuf) {
+						const src = ctx.createBufferSource();
+						src.buffer = noiseBuf;
+						src.playbackRate.value = 0.85 + Math.random() * 0.4;
+
+						const bp = ctx.createBiquadFilter();
+						bp.type = 'bandpass';
+						bp.frequency.value = 1600 + Math.random() * 1400;
+						bp.Q.value = 1.1;
+
+						const ng = ctx.createGain();
+						ng.gain.setValueAtTime(0.22, now);
+						ng.gain.exponentialRampToValueAtTime(0.0001, now + 0.03);
+
+						src.connect(bp).connect(ng).connect(master);
+						src.start(now);
+						src.stop(now + 0.04);
+					}
+				}
+
+				soundBtn.addEventListener('click', () => {
+					soundOn = !soundOn;
+					soundBtn.textContent = soundOn ? '🔊' : '🔇';
+					soundBtn.setAttribute('aria-label', soundOn ? '소리 끄기' : '소리 켜기');
+					if (soundOn) {
+						initAudio();
+						playPop();
+					}
+				});
+
+				/* ================= 파티클 ================= */
+				let liveParticles = 0;
+				const MAX_PARTICLES = 260;
+				const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+				function burst(x, y) {
+					if (reduceMotion) return;
+					const n = 7 + Math.floor(Math.random() * 4);
+					if (liveParticles + n > MAX_PARTICLES) return; // 폭주 방지
+
+					const frag = document.createDocumentFragment();
+					const nodes = [];
+
+					for (let i = 0; i < n; i++) {
+						const p = document.createElement('div');
+						p.className = 'particle';
+						const size = 4 + Math.random() * 6;
+						const color = PASTELS[(Math.random() * PASTELS.length) | 0];
+
+						p.style.width = p.style.height = size + 'px';
+						p.style.left = x - size / 2 + 'px';
+						p.style.top = y - size / 2 + 'px';
+						p.style.background = `radial-gradient(circle at 32% 30%, #fff, ${color} 70%)`;
+						p.style.boxShadow = `0 0 6px ${color}`;
+
+						frag.appendChild(p);
+						nodes.push({ el: p, size });
+					}
+					document.body.appendChild(frag);
+					liveParticles += n;
+
+					for (const { el } of nodes) {
+						const angle = Math.random() * Math.PI * 2;
+						const dist = 22 + Math.random() * 46;
+						const dx = Math.cos(angle) * dist;
+						const dy = Math.sin(angle) * dist;
+						const dur = 480 + Math.random() * 320;
+
+						const anim = el.animate(
+							[
+								{ transform: 'translate3d(0,0,0) scale(1)', opacity: 1 },
+								{ transform: `translate3d(${dx * 0.65}px, ${dy * 0.65 - 6}px, 0) scale(1.15)`, opacity: 0.9, offset: 0.4 },
+								{ transform: `translate3d(${dx}px, ${dy + 26}px, 0) scale(.25)`, opacity: 0 },
+							],
+							{ duration: dur, easing: 'cubic-bezier(.2,.7,.35,1)' },
+						);
+
+						anim.onfinish = anim.oncancel = () => {
+							el.remove();
+							liveParticles--;
+						};
+					}
+				}
+
+				/* ================= 뽁뽁이 판 생성 (반응형) ================= */
+				function cellMetrics() {
+					const cs = getComputedStyle(sheet);
+					const cell = parseFloat(cs.getPropertyValue('--cell'));
+					const gap = parseFloat(cs.getPropertyValue('--gap'));
+					const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+					const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+					return { cell, gap, padX, padY };
+				}
+
+				function neededCount() {
+					const { cell, gap, padX, padY } = cellMetrics();
+					const w = sheet.clientWidth - padX;
+					const h = sheet.clientHeight - padY;
+					const cols = Math.max(1, Math.floor((w + gap) / (cell + gap)));
+					const rows = Math.max(1, Math.floor((h + gap) / (cell + gap)));
+					return cols * rows;
+				}
+
+				function makeBubble(delay) {
+					const b = document.createElement('button');
+					b.className = 'bubble';
+					b.type = 'button';
+					b.setAttribute('aria-label', '뽁뽁이');
+					b.style.setProperty('--d', delay + 'ms');
+					return b;
+				}
+
+				// 개수만 맞춰 조정 → 창 크기가 바뀌어도 이미 터뜨린 알갱이는 그대로 유지된다
+				function syncBubbles(animate) {
+					const want = neededCount();
+					const have = sheet.childElementCount;
+
+					if (have < want) {
+						const frag = document.createDocumentFragment();
+						for (let i = have; i < want; i++) {
+							frag.appendChild(makeBubble(animate ? Math.min(i * 3, 500) : 0));
+						}
+						sheet.appendChild(frag);
+					} else if (have > want) {
+						for (let i = have - 1; i >= want; i--) sheet.children[i].remove();
+					}
+				}
+
+				function refill() {
+					sheet.replaceChildren();
+					syncBubbles(true);
+					sheet.classList.remove('refreshing');
+					void sheet.offsetWidth;
+					sheet.classList.add('refreshing');
+				}
+
+				/* ================= 터뜨리기 ================= */
+				function pop(bubble) {
+					if (!bubble || !bubble.classList.contains('bubble') || bubble.classList.contains('popped')) return;
+					bubble.classList.add('popped');
+					bubble.disabled = true;
+
+					playPop();
+					addCount();
+
+					const r = bubble.getBoundingClientRect();
+					burst(r.left + r.width / 2, r.top + r.height / 2);
+				}
+
+				/* ---- 포인터: 클릭 + 드래그 문지르기 ----
+     터치는 암묵적 포인터 캡처 때문에 pointerenter가 오지 않는다.
+     그래서 좌표 기반 elementFromPoint로 마우스/터치를 한 경로에서 처리한다. */
+				let dragging = false;
+				let lastX = 0,
+					lastY = 0,
+					rafId = 0;
+
+				function popAt(x, y) {
+					const el = document.elementFromPoint(x, y);
+					if (el) pop(el.closest('.bubble'));
+				}
+
+				// 이전 좌표와 현재 좌표 사이를 보간 → 빠르게 휙 그어도 중간이 안 빠진다
+				function popAlong(x, y) {
+					const dx = x - lastX,
+						dy = y - lastY;
+					const dist = Math.hypot(dx, dy);
+					const { cell } = cellMetrics();
+					const step = Math.max(6, cell * 0.5);
+					const steps = Math.min(24, Math.floor(dist / step));
+
+					for (let i = 1; i <= steps; i++) {
+						popAt(lastX + (dx * i) / steps, lastY + (dy * i) / steps);
+					}
+					popAt(x, y);
+					lastX = x;
+					lastY = y;
+				}
+
+				sheet.addEventListener('pointerdown', (e) => {
+					if (e.button !== undefined && e.button !== 0) return;
+					initAudio();
+					dragging = true;
+					lastX = e.clientX;
+					lastY = e.clientY;
+					sheet.classList.add('dragging');
+					popAt(e.clientX, e.clientY);
+					e.preventDefault();
+				});
+
+				sheet.addEventListener('pointermove', (e) => {
+					if (!dragging) return;
+					const x = e.clientX,
+						y = e.clientY;
+					if (rafId) return; // 프레임당 한 번만 처리
+					rafId = requestAnimationFrame(() => {
+						rafId = 0;
+						popAlong(x, y);
+					});
+				});
+
+				function endDrag() {
+					dragging = false;
+					sheet.classList.remove('dragging');
+					if (rafId) {
+						cancelAnimationFrame(rafId);
+						rafId = 0;
+					}
+				}
+				window.addEventListener('pointerup', endDrag);
+				window.addEventListener('pointercancel', endDrag);
+
+				// 키보드 접근성 (Tab + Enter/Space)
+				sheet.addEventListener('keydown', (e) => {
+					if (e.key !== 'Enter' && e.key !== ' ') return;
+					const b = e.target.closest('.bubble');
+					if (!b) return;
+					e.preventDefault();
+					initAudio();
+					pop(b);
+				});
+
+				resetBtn.addEventListener('click', () => {
+					initAudio();
+					refill();
+				});
+
+				/* ================= 리사이즈 대응 ================= */
+				let rzTimer = null;
+				new ResizeObserver(() => {
+					clearTimeout(rzTimer);
+					rzTimer = setTimeout(() => syncBubbles(false), 120);
+				}).observe(sheet);
+
+				/* ================= 배경 방울 ================= */
+				(function decorate() {
+					const deco = document.getElementById('deco');
+					const frag = document.createDocumentFragment();
+					for (let i = 0; i < 14; i++) {
+						const b = document.createElement('i');
+						const size = 14 + Math.random() * 54;
+						b.style.width = b.style.height = size + 'px';
+						b.style.left = Math.random() * 100 + 'vw';
+						b.style.animationDuration = 16 + Math.random() * 18 + 's';
+						b.style.animationDelay = -Math.random() * 30 + 's';
+						b.style.opacity = (0.25 + Math.random() * 0.4).toFixed(2);
+						frag.appendChild(b);
+					}
+					deco.appendChild(frag);
+				})();
+
+				syncBubbles(true);
+			})();
+		</script>
+	</body>
+</html>
